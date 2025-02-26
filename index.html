@@ -47,6 +47,29 @@
         .coluna h2 {
             color: #bb86fc;
         }
+        .group {
+            width: 80%;
+            margin: 10px 0;
+        }
+        .progress-bar {
+            background-color: #2d2d2d;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 30px;
+            width: 100%;
+        }
+        .progress {
+            height: 100%;
+            transition: width 0.5s;
+        }
+        .label {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-weight: bold;
+            color: #ffffff;
+        }
         button {
             background-color: #bb86fc;
             border: none;
@@ -164,6 +187,30 @@
             <div class="progress-bar">
                 <div class="progress" style="width: 75%; background-color: #ffab91;"></div>
                 <div class="label">G2</div>
+            </div>
+        </div>
+    <div class="group">
+            <div class="progress-bar">
+                <div class="progress" style="width: 50%; background-color: #76c7c0;"></div>
+                <div class="label">G3</div>
+            </div>
+        </div>
+    <div class="group">
+            <div class="progress-bar">
+                <div class="progress" style="width: 50%; background-color: #76c7c0;"></div>
+                <div class="label">G4</div>
+            </div>
+        </div>
+    <div class="group">
+            <div class="progress-bar">
+                <div class="progress" style="width: 50%; background-color: #76c7c0;"></div>
+                <div class="label">G1</div>
+            </div>
+        </div>
+    <div class="group">
+            <div class="progress-bar">
+                <div class="progress" style="width: 50%; background-color: #76c7c0;"></div>
+                <div class="label">G1</div>
             </div>
         </div>
         <!-- Adicione outras barras de progresso aqui -->
