@@ -52,10 +52,89 @@
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
-        
+
+        /* Estilo do Menu Suspenso */
+        .menu {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .menu-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .menu-btn:hover {
+            background-color: #555;
+        }
+
+        .menu-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .menu-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .menu-content a:hover {
+            background-color: #555;
+        }
+
+        .menu:hover .menu-content {
+            display: block;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .menu-btn {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+
+            .menu-content {
+                min-width: 120px;
+            }
+
+            .menu-content a {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 20px;
+                padding: 12px 24px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Menu Suspenso -->
+    <div class="menu">
+        <button class="menu-btn">Menu</button>
+        <div class="menu-content">
+            <a href="javascript:window.location.reload()">Games</a>
+            <a href="index.html">Home</a>
+        </div>
+    </div>
+
     <div class="container">
         <button id="playButton">Never Have I Ever</button>
         <img id="imageDisplay" src="" alt="Game Image">
