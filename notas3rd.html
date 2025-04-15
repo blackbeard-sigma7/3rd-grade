@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apontamento de Atividades</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .student-row {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .student-name {
+            flex: 1;
+            font-size: 16px;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: 0.4s;
+            border-radius: 30px;
+        }
+        .slider.red {
+            background-color: #ff0000;
+        }
+        .slider.blue {
+            background-color: #0000ff;
+        }
+        .slider.green {
+            background-color: #00ff00;
+        }
+        #submit-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #submit-btn:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Apontamento de Atividades</h1>
+        <div id="students-list"></div>
+        <button id="submit-btn">Enviar</button>
+    </div>
+
+    <script>
+        const students = [
+            "Adriely Samara Chagas de Souza Silva",
+    "Allyson Henrique Gomes da Silva",
+    "Bárbara Dayalle Florêncio da Silva",
+    "Camile Renata da Silva",
+    "Carlos Daniel Barros do Amaral",
+    "Danyella Farias Ribeiro",
+    "Davi Albuquerque de Oliveira",
+    "Débora Valentina Santos Lima",
+    "Eduardo Victor Gomes de Santana",
+    "Ellem Gleicy Rodrigues de Santana",
+    "Ellen Gabriella Rodrigues de Melo",
+    "Evelyn Medeiros Martins",
+    "Fernanda Evelyn da Câmara Lima",
+    "Giovanna Laila Lima de Albuquerque Nobre",
+    "Isabelly Alves da Silva Melo",
+    "Ivy Rakelly Siqueira de Azevedo",
+    "João José da Silva Neto",
+    "João Weslley Dionizzio Mendes",
+    "Jonata Bezerra da Silva",
+    "Júlia Evelyn Lopes da Silva",
+    "Kauã Rafael Sales Santos",
+    "Larissa Maria da Silva Santos",
+    "Leon de Almeida Brito",
+    "Lorena Barbosa de Souza",
+    "Lucas Gonçalves Tashiro",
+    "Luiz Felipe Bastos da Silva Nogueira",
+    "Maria Clara Barbosa Arandas",
+    "Maria Eduarda Rodrigues da Silva",
+    "Maria Isadora Tenório de Oliveira",
+    "Maria Paula Pereira de Medeiros",
+    "Marina Maria Barbosa Farias",
+    "Michael Victor Cordeiro dos Santos",
+    "Miguel Ludgero da Silva Neto",
+    "Paulo Henrique da Silva Santos",
+    "Paulo Tashiro Frota",
+    "Sandrielly Laísa dos Santos",
+    "Sara Laís Feitosa de Oliveira",
+    "Stherfanne Santos Alves",
+    "Vanessa Viana Alencar",
+    "Victor Kauã de França Soares",
+    "William Souza Donato",
+    "Yasmim Allana Elias Reis Silva"
+        ];
+
+        const studentsList = document.getElementById('students-list');
+
+        students.forEach(student => {
+            const row = document.createElement('div');
+            row.className = 'student-row';
+            row.innerHTML = `
+                <div class="student-name">${student}</div>
+                <label class="toggle-switch">
+                    <input type="radio" name="${student}" value="0" checked onchange="updateSlider(this)">
+                    <span class="slider red"></span>
+                </label>
+                <label class="toggle-switch">
+                    <input type="radio" name="${student}" value="6" onchange="updateSlider(this)">
+                    <span class="slider blue"></span>
+                </label>
+                <label class="toggle-switch">
+                    <input type="radio" name="${student}" value="10" onchange="updateSlider(this)">
+                    <span class="slider green"></span>
+                </label>
+            `;
+            studentsList.appendChild(row);
+        });
+
+        function updateSlider(input) {
+            const sliders = input.parentElement.parentElement.querySelectorAll('.slider');
+            sliders.forEach(slider => {
+                slider.className = 'slider';
+                if (slider.previousElementSibling.value === input.value) {
+                    if (input.value === '0') slider.classList.add('red');
+                    if (input.value === '6') slider.classList.add('blue');
+                    if (input.value === '10') slider.classList.add('green');
+                }
+            });
+        }
+
+        document.getElementById('submit-btn').addEventListener('click', async function() {
+    const data = students.map(student => {
+        const selectedValue = document.querySelector(`input[name="${student}"]:checked`).value;
+        return { nome: student, valor: parseInt(selectedValue) };
+    });
+
+    const payload = {
+        data: new Date().toISOString(),
+        alunos: data
+    };
+
+    try {
+        await fetch('https://script.google.com/macros/s/AKfycbw5-in2NmeIWdsdJH0gsw-wV0o_cT0v1DoUAuFZCHwhHHBGsPITj4zN6fEn9xIOuOV59A/exec', {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            headers: { 'Content-Type': 'application/json' },
+            mode: 'no-cors'
+        });
+        window.location.href = 'success.html';
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao enviar dados. Verifique a conexão.');
+    }
+});
+    </script>
+</body>
+</html>
